@@ -7,10 +7,6 @@ function AppContainer({ children }: { children: JSX.Element }): JSX.Element {
         <>
             <header>
                 <h1>Mon En-tête</h1>
-                <nav>
-                    <a href="/">Accueil</a>
-                    <a href="/autre">Autre Page</a>
-                </nav>
             </header>
             <main>
                 <Outlet />

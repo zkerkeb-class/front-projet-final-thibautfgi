@@ -1,19 +1,51 @@
 import {useState, useEffect, JSX} from 'react';
-import { apiGetItembyId } from '../../../service/apiService';
+import { apiGetItembyId, apiGetItemMediabyId } from '../../../service/apiService';
 
 function TestItem(): JSX.Element {
     const [itemData, setItemData] = useState<any>(null);
+    const [mediaData, setMediaData] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
+    //let itemId = 19019; // ID de l'item à tester LEGENDAIRE
+     //let itemId = 18609; // ID de l'item à tester EPIQUE
+  //let itemId = 8345; // ID de l'item à tester BLEU
+  let itemId = 11287; // ID de l'item à tester VERT
+   //  let itemId = 5040; // ID de l'item à tester BLANC
+
+
 
     useEffect(() => {
-        apiGetItembyId(19019, (data, err) => {
+        apiGetItembyId(itemId, (data, err) => {
             if (err) {
                 setError(err);
             } else {
                 setItemData(data);
+                apiGetItemMediabyId(itemId, (media, mediaErr) => {
+                    if (mediaErr) {
+                        setError(mediaErr);
+                    } else {
+                        setMediaData(media);
+                    }
+                });
             }
         });
     }, []);
+
+    const getBorderColor = (qualityType: string): string => {
+        switch (qualityType) {
+            case 'LEGENDARY':
+                return 'orange';
+            case 'EPIC':
+                return 'purple';
+            case 'RARE':
+                return 'blue';
+            case 'UNCOMMON':
+                return 'green';
+            case 'COMMON':
+                return 'white';
+            default:
+                return 'gray';
+        }
+    };
 
     if (error) return <p>Erreur : {error}</p>;
 
@@ -28,20 +60,19 @@ function TestItem(): JSX.Element {
             <p>Prix de vente : {itemData.sell_price} pièces</p>
             <p>Type : {itemData.item_class.name} - {itemData.item_subclass.name}</p>
             <p>Durabilité : {itemData.preview_item.durability.display_string}</p>
-            <h2>Statistiques :</h2>
-            <ul>
-                {itemData.preview_item.stats.map((stat: any, index: number) => (
-                    <li key={index}>{stat.display.display_string}</li>
-                ))}
-            </ul>
-            <h2>Sorts :</h2>
-            <ul>
-                {itemData.preview_item.spells.map((spell: any, index: number) => (
-                    <li key={index}>
-                        <strong>{spell.spell.name}</strong>: {spell.description}
-                    </li>
-                ))}
-            </ul>
+            {mediaData && mediaData.assets && (
+                <div>
+                    <h2>Média</h2>
+                    <img
+                        src={mediaData.assets[0].value}
+                        alt="Item Media"
+                        style={{
+                            border: `5px solid ${getBorderColor(itemData.quality.type)}`,
+                            borderRadius: '8px'
+                        }}
+                    />
+                </div>
+            )}
         </div>
     );
 }
