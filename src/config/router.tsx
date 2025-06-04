@@ -5,11 +5,12 @@ import {
 
 import AppContainer from "../components/communs/appContainer/appContainer";
 import HomePage from "../components/page/home/homePage";
+import BattleNetAuth from "../components/communs/battleNetAuth/battleNetAuth";
 
 let router = createBrowserRouter([
   {
     path: "/",
-    Component: AppContainer,
+    Component: BattleNetAuth,
     children: [
       {
         path: "/",

@@ -1,6 +1,7 @@
 import { JSX } from 'react';
 import './homePage.css';
 import TestItem from "../../communs/test/testItem";
+import BattleNetAuth from "../../communs/battleNetAuth/battleNetAuth";
 
 function HomePage(): JSX.Element {
 

@@ -1,17 +1,12 @@
-import {useState, useEffect, JSX} from 'react';
+import { useState, useEffect, JSX } from 'react';
 import { apiGetItembyId, apiGetItemMediabyId } from '../../../service/apiService';
+import { Link } from 'react-router-dom';
 
 function TestItem(): JSX.Element {
+    const [itemId, setItemId] = useState<number>(19019); // ID par défaut (LEGENDAIRE)
     const [itemData, setItemData] = useState<any>(null);
     const [mediaData, setMediaData] = useState<any>(null);
     const [error, setError] = useState<string | null>(null);
-    //let itemId = 19019; // ID de l'item à tester LEGENDAIRE
-     //let itemId = 18609; // ID de l'item à tester EPIQUE
-  //let itemId = 8345; // ID de l'item à tester BLEU
-  let itemId = 11287; // ID de l'item à tester VERT
-   //  let itemId = 5040; // ID de l'item à tester BLANC
-
-
 
     useEffect(() => {
         apiGetItembyId(itemId, (data, err) => {
@@ -28,7 +23,7 @@ function TestItem(): JSX.Element {
                 });
             }
         });
-    }, []);
+    }, [itemId]);
 
     const getBorderColor = (qualityType: string): string => {
         switch (qualityType) {
@@ -41,13 +36,22 @@ function TestItem(): JSX.Element {
             case 'UNCOMMON':
                 return 'green';
             case 'COMMON':
-                return 'white';
-            default:
                 return 'gray';
+            default:
+                return 'white';
         }
     };
 
-    if (error) return <p>Erreur : {error}</p>;
+    if (error) {
+        if (error === "Non authentifié") {
+            return (
+                <div>
+                    <p>Vous devez être connecté pour voir cet item.</p>
+                </div>
+            );
+        }
+        return <p>Erreur : {error}</p>;
+    }
 
     if (!itemData) return <p>Chargement...</p>;
 
@@ -68,11 +72,18 @@ function TestItem(): JSX.Element {
                         alt="Item Media"
                         style={{
                             border: `5px solid ${getBorderColor(itemData.quality.type)}`,
-                            borderRadius: '8px'
+                            borderRadius: '8px',
                         }}
                     />
                 </div>
             )}
+            <div style={{ marginTop: '20px' }}>
+                <button onClick={() => setItemId(19019)}>Légendaire</button>
+                <button onClick={() => setItemId(18609)}>Épique</button>
+                <button onClick={() => setItemId(8345)}>Bleu</button>
+                <button onClick={() => setItemId(11287)}>Vert</button>
+                <button onClick={() => setItemId(5040)}>Blanc</button>
+            </div>
         </div>
     );
 }

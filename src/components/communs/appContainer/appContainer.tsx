@@ -8,9 +8,7 @@ function AppContainer({ children }: { children: JSX.Element }): JSX.Element {
             <header>
                 <h1>Mon En-tête</h1>
             </header>
-            <main>
-                <Outlet />
-            </main>
+
         </>
     );
 }
