@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from '../../../config/axiosConfig';
-import { Outlet } from "react-router";
+import './connect.css'; // Assuming you have a CSS file for styling
+import { Outlet } from 'react-router';
 
-const Login = () => {
+const Connect = () => {
     const [status, setStatus] = useState(null);
     const [accessToken, setAccessToken] = useState(null);
     const [user, setUser] = useState(null);
@@ -27,7 +28,7 @@ const Login = () => {
                 } else {
                     setUser(null);
                     setAccessToken(null);
-                    setError("Utilisateur non connecté. Veuillez vous connecter.");
+                    setError('Utilisateur non connecté. Veuillez vous connecter.');
                 }
             })
             .catch((error) => {
@@ -57,30 +58,33 @@ const Login = () => {
     useEffect(() => {
         checkStatus();
     }, []);
+
     return (
         <div style={{ padding: '20px' }}>
-            <h1>Connexion à Battle.net</h1>
+            <h1>Connexion</h1>
             <div style={{ marginBottom: '10px' }}>
-                <button onClick={handleLogin}>Se connecter</button>
-                <button onClick={checkStatus} style={{ marginLeft: '10px' }}>
-                    Vérifier le statut
-                </button>
+                {!user && (
+                    <button onClick={handleLogin}>Se connecter</button>
+                )}
                 {user && (
-                    <button onClick={handleLogout} style={{ marginLeft: '10px' }}>
-                        Se déconnecter
-                    </button>
+                    <>
+                        <button onClick={handleLogout} style={{ marginLeft: '10px' }}>
+                            Se déconnecter
+                        </button>
+                    </>
                 )}
             </div>
             {status && <p>Statut : {status}</p>}
-            {user && <p>Utilisateur : {user}</p>}
-            {accessToken && <p>Token d'accès : {accessToken}</p>}
+            {user && (
+                <div>
+                    <p>Utilisateur : {user}</p>
+                    <p>Token d'accès : {accessToken}</p>
+                </div>
+            )}
             {error && <p style={{ color: 'red' }}>Erreur : {error}</p>}
 
-            <main>
-                <Outlet />
-            </main>
         </div>
     );
 };
 
-export default Login;
+export default Connect;

@@ -1,15 +1,20 @@
-import { JSX } from 'react';
+
 import './appContainer.css';
-import {Outlet} from "react-router";
 
-function AppContainer({ children }: { children: JSX.Element }): JSX.Element {
+import Header from "../header/header";
+import Footer from "../footer/footer";
+import { Outlet } from 'react-router';
+
+function AppContainer() {
     return (
-        <>
-            <header>
-                <h1>Mon En-tête</h1>
-            </header>
 
-        </>
+        <div className={"app-container"}>
+            <Header/>
+            <div className="app-content">
+                <Outlet/>
+            </div>
+            <Footer/>
+        </div>
     );
 }
 
