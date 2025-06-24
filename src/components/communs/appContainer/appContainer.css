@@ -1,24 +1,26 @@
+/* appContainer.css */
+
 .app-container {
+    position: relative;
     width: 100%;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    padding-top: 40px;
-    margin: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0)), url('../../../assets/image/wow-magma.png') no-repeat center center fixed;
+    height: 100vh;
+    overflow: hidden;
 
+    background: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0)),
+    url('../../../assets/image/wow-magma.png') no-repeat center center fixed;
     background-size: cover;
-    overflow-x: hidden;
+
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-
 }
 
-
 .app-content {
+    scrollbar-width: none; /* Pour Firefox */
+        -ms-overflow-style: none; /* Pour Internet Explorer et Edge */
     flex: 1;
-    margin-top: 20vh; /* Correspond à la hauteur du header */
+    overflow-y: auto;
     padding: 1rem;
-    margin-bottom: 5vh; /* Correspond à la hauteur du footer */
+    margin-top: 60px; /* Hauteur fixe du header */
+    margin-bottom: 60px; /* Hauteur fixe du footer */
+    height: calc(100vh - 120px); /* hauteur - header - footer */
 }

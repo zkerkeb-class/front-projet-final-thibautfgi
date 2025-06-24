@@ -4,7 +4,7 @@ import './home.css';
 function Home(): JSX.Element {
 
     return (
-        <p>home</p>
+        <p></p>
     )
 }
 

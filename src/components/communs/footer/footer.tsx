@@ -7,7 +7,7 @@ function Footer(): JSX.Element {
     return (
         <>
              <footer className=" footer-container">
-                <p>© 2024 Mountain Journey. All Rights Reserved</p>
+                <p>© 2024 Armory Adventure. All Rights Reserved</p>
             </footer>
         </>
     )

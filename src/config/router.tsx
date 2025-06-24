@@ -5,6 +5,9 @@ import Connect from "../components/page/connect/connect";
 import Guard from "../guard/guard"; // Ajusté le chemin d'importation
 import NotFound from "../components/page/not-found/not-found";
 import Home from "../components/page/home/home";
+import Armurerie from "../components/page/armurerie/armurerie";
+import Bestiaire from "../components/page/bestiaire/bestiaire";
+import Favories from "../components/page/favories/favories";
 
 const router = createBrowserRouter([
   {
@@ -25,7 +28,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true, // Rend ce composant par défaut sous /armurerie
-            element: <div>Page Armurerie</div>, // Placeholder, remplacez par votre composant
+            element: <Armurerie />, // Placeholder, remplacez par votre composant
           },
         ],
       },
@@ -35,7 +38,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <div>Page Favoris</div>, // Placeholder
+            element: <Favories />,
           },
         ],
       },
@@ -45,7 +48,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <div>Page Bestiaire</div>, // Placeholder
+            element: <Bestiaire />, // Placeholder
           },
         ],
       },

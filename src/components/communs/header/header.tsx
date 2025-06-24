@@ -10,7 +10,7 @@ function Header(): JSX.Element {
     return (
         <div className="header-container">
             <div className="header-top-row">
-                <div className="wow-logo"></div>
+                <Link to="/" className="wow-logo"></Link>
             </div>
 
             <div className={"test"}></div>

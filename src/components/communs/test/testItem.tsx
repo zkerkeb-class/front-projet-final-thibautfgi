@@ -1,5 +1,5 @@
 import { useState, useEffect, JSX } from 'react';
-import { apiGetItembyId, apiGetItemMediabyId } from '../../../service/apiService';
+import { apiGetItembyId, apiGetItemMediabyId } from '../service/apiService';
 import { Link } from 'react-router-dom';
 
 function TestItem(): JSX.Element {
