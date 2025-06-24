@@ -17,9 +17,9 @@ function Header(): JSX.Element {
 
             <div className="header-nav-row">
                 <nav className="navbar">
-                    <Link to="/connect" className="nav-link">Armurerie</Link>
-                    <Link to="/connect" className="nav-link">Bestiaire</Link>
-                    <Link to="/connect" className="nav-link-last">Favories</Link>
+                    <Link to="/armurerie" className="nav-link">Armurerie</Link>
+                    <Link to="/bestiaire" className="nav-link">Bestiaire</Link>
+                    <Link to="/favories" className="nav-link-last">Favories</Link>
                 </nav>
                 <div className="header-nav-buttons">
                     <button className="buttonHeader">
