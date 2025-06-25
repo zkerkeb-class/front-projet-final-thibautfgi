@@ -127,7 +127,10 @@ function ItemSearch({ onItemSelect }: { onItemSelect: (itemWithMedia: { item: an
                                     <li
                                         key={item.data.id}
                                         className="result-item"
-                                        onClick={() => onItemSelect({ item, media })}
+                                        onClick={() => {
+                                            onItemSelect({ item, media });
+                                            setSearchTerm('');
+                                        }}
                                         style={{ cursor: 'pointer' }}
                                     >
                                         {media && media.assets && media.assets[0] && (

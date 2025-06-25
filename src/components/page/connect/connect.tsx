@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from '../../../config/axiosConfig';
-import './connect.css'; // Assuming you have a CSS file for styling
+import './connect.css';
 import { Outlet } from 'react-router';
 
 const Connect = () => {
@@ -60,18 +60,21 @@ const Connect = () => {
     }, []);
 
     return (
-        <div style={{ padding: '20px' }}>
+        <div className="connect-container">
+
+
+        <div className="connect-content">
             <h1>Connexion</h1>
             <div style={{ marginBottom: '10px' }}>
                 {!user && (
-                    <button onClick={handleLogin}>Se connecter</button>
+                    <button className="recover-button" onClick={handleLogin}>
+                        Se connecter
+                    </button>
                 )}
                 {user && (
-                    <>
-                        <button onClick={handleLogout} style={{ marginLeft: '10px' }}>
-                            Se déconnecter
-                        </button>
-                    </>
+                    <button className="recover-button" onClick={handleLogout} style={{ marginLeft: '10px' }}>
+                        Se déconnecter
+                    </button>
                 )}
             </div>
             {status && <p>Statut : {status}</p>}
@@ -82,7 +85,7 @@ const Connect = () => {
                 </div>
             )}
             {error && <p style={{ color: 'red' }}>Erreur : {error}</p>}
-
+        </div>
         </div>
     );
 };

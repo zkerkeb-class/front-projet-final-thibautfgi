@@ -33,7 +33,7 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/favories", // Route protégée
+        path: "/inventaire", // Route protégée
         element: <Guard />,
         children: [
           {

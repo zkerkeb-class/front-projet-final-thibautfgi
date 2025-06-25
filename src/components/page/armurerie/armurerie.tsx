@@ -42,7 +42,10 @@ function Armurerie(): JSX.Element {
                         <button className="recover-button">Récupérer l'item</button>
                     </div>
                 ) : (
-                    <p>Sélectionnez un item dans la recherche.</p>
+                    <div className="item-details">
+                        <p>Sélectionnez un item dans la recherche.</p>
+                    </div>
+
                 )}
             </div>
         </div>
