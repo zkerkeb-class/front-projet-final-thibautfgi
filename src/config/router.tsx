@@ -7,7 +7,7 @@ import NotFound from "../components/page/not-found/not-found";
 import Home from "../components/page/home/home";
 import Armurerie from "../components/page/armurerie/armurerie";
 import Bestiaire from "../components/page/bestiaire/bestiaire";
-import Favories from "../components/page/favories/favories";
+import Inventaire from "../components/page/inventaire/inventaire";
 
 const router = createBrowserRouter([
   {
@@ -38,7 +38,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <Favories />,
+            element: <Inventaire />,
           },
         ],
       },

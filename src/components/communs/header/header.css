@@ -1,13 +1,11 @@
 .header-container {
     width: 100%;
-    position: fixed; /* Changé de sticky à fixed pour rester en haut */
-    top: 0; /* Positionne en haut de la page */
-    z-index: 1000; /* Assure qu'il reste au-dessus du contenu */
+    height: 20vh; /* Exactement 20vh */
     display: flex;
     flex-direction: column;
-    height: 20vh; /* Hauteur totale du header */
+    z-index: 1000;
+    position: relative; /* Changer fixed à relative */
 }
-
 /* Première row : 15vh, noir avec logo WoW au centre */
 .header-top-row {
     height: 50%;

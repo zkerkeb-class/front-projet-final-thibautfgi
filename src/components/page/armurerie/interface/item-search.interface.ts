@@ -9,6 +9,23 @@ interface ItemQuality {
     type: string;
 }
 
+interface InventoryType {
+    name: LocalizedString;
+type: string;
+}
+
+interface ItemClass {
+    name: LocalizedString;
+    id: number;
+}
+
+interface ItemSubClass {
+    name: LocalizedString;
+    id: number;
+}
+
+
+
 interface ItemSearchResult {
     data: {
         id: number;
@@ -17,6 +34,9 @@ interface ItemSearchResult {
         required_level: number;
         purchase_price: number;
         sell_price: number;
+        inventory_type: InventoryType;
+        item_class: ItemClass;
+        item_subclass: ItemSubClass;
     };
 }
 

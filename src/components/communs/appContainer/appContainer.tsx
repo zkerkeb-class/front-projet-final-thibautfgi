@@ -3,17 +3,22 @@ import './appContainer.css';
 
 import Header from "../header/header";
 import Footer from "../footer/footer";
-import { Outlet } from 'react-router';
+
+import { Outlet } from 'react-router-dom';
 
 function AppContainer() {
     return (
 
-        <div className={"app-container"}>
-            <Header/>
-            <div className="app-content">
+        <div className="app-container">
+            <div className="top">
+                <Header/>
+            </div>
+            <div className="main-content">
                 <Outlet/>
             </div>
-            <Footer/>
+            <div className="bot">
+                <Footer/>
+            </div>
         </div>
     );
 }
