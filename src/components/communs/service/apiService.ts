@@ -24,7 +24,6 @@ export const apiGetItemMediaById = (itemId: number, callback: (data: any | null,
         });
 };
 
-
 export const searchItems = (params: {
     name: string;
     _page?: number;
@@ -42,6 +41,19 @@ export const searchItems = (params: {
     })
         .then((response) => response.data)
         .catch((error) => {
+            throw error.response?.data?.error || error.message;
+        });
+};
+
+export const postItem = (id: number): Promise<any> => {
+    console.log('Posting to:', `${API_BASE_URL}/item`, 'with config:', { withCredentials: true }); // Debug log
+    return axios.post(`${API_BASE_URL}/item`, { id }, { withCredentials: true })
+        .then((response) => {
+            console.log('Post response:', response.data); // Debug log
+            return response.data;
+        })
+        .catch((error) => {
+            console.error('Post error:', error.response?.data || error.message); // Debug log
             throw error.response?.data?.error || error.message;
         });
 };

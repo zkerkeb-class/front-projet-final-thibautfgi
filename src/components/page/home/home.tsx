@@ -1,6 +1,6 @@
 import { JSX } from 'react';
 import './home.css';
-import Connect from "../connect/connect";
+import Connect from "../../communs/connect/connect";
 
 function Home(): JSX.Element {
 

@@ -55,5 +55,8 @@ export const getItemClass = (itemClassId: number): string => {
 };
 
 
-export const getFrenchTranslation = (localized: LocalizedString): string =>
-    localized.fr_FR || 'Nom inconnu';
+export function getFrenchTranslation(name: LocalizedString | string | undefined): string {
+    if (!name) return "nom inconnu";
+    if (typeof name === 'string') return name; // Return the string directly if it's already a French name
+    return name.fr_FR || name['fr_FR'] || Object.values(name)[0] || "nom inconnu"; // Fallback for LocalizedString object
+}

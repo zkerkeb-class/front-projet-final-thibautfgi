@@ -42,8 +42,8 @@ const Guard = () => {
 
     useEffect(() => {
         if (!isLoading && !user && error) {
-            console.log('Redirection vers /connect car non connecté');
-            navigate('/connect', { replace: true });
+            console.log('Redirection vers / car non connecté');
+            navigate('/', { replace: true });
         }
     }, [isLoading, user, error, navigate]);
 

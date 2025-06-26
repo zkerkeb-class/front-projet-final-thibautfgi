@@ -56,6 +56,9 @@ const searchItemsCallback = (
         });
 };
 
+
+
+
 function ItemSearch({ onItemSelect }: { onItemSelect: (itemWithMedia: { item: any, media: any }) => void }): JSX.Element {
     const [searchTerm, setSearchTerm] = useState('');
     const [allResults, setAllResults] = useState<ItemSearchResult[]>([]);

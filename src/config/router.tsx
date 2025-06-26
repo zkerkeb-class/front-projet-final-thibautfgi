@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router";
 
 import AppContainer from "../components/communs/appContainer/appContainer";
-import Connect from "../components/page/connect/connect";
+import Connect from "../components/communs/connect/connect";
 import Guard from "../guard/guard"; // Ajusté le chemin d'importation
 import NotFound from "../components/page/not-found/not-found";
 import Home from "../components/page/home/home";
