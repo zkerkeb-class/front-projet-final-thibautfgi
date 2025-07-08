@@ -1,55 +1,39 @@
-import { useState, useEffect } from 'react';
-import axios from '../config/axiosConfig';
-import { Outlet, useNavigate } from 'react-router-dom';
+// src/guard/guard.tsx
+import { useEffect } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../components/communs/authProvider/authProvider'; // Ajustez le chemin
 
-const Guard = () => {
-    const [user, setUser] = useState(null);
-    const [status, setStatus] = useState(null);
-    const [error, setError] = useState(null);
-    const [isLoading, setIsLoading] = useState(true); // Ajout de l'état de chargement
+// Guard général pour les routes nécessitant une authentification
+export const Guard = () => {
+    const { isAuthenticated } = useAuth();
     const navigate = useNavigate();
-
-    const checkStatus = () => {
-        setIsLoading(true); // Réinitialise le chargement
-        axios
-            .get('/auth/status')
-            .then((response) => {
-                console.log('Réponse API /auth/status:', response.data);
-                setStatus(response.data.message);
-                if (response.data.message === 'Connecté') {
-                    setUser(response.data.user || 'Utilisateur Connecté');
-                    setError(null);
-                } else {
-                    setUser(null);
-                    setError('Utilisateur non connecté.');
-                }
-            })
-            .catch((error) => {
-                console.error('Erreur checkStatus dans Guard:', error.response ? error.response.data : error.message);
-                setStatus('Erreur lors de la vérification du statut');
-                setError('Erreur lors de la vérification du statut.');
-                setUser(null);
-            })
-            .then(() => {
-                console.log('Chargement terminé, isLoading mis à false');
-                setIsLoading(false);
-            });
-    };
+    const location = useLocation();
 
     useEffect(() => {
-        checkStatus();
-    }, []);
-
-    useEffect(() => {
-        if (!isLoading && !user && error) {
-            console.log('Redirection vers / car non connecté');
-            navigate('/', { replace: true });
+        if (!isAuthenticated) {
+            console.log('Utilisateur non authentifié, redirection vers /connect');
+            navigate('/connect', { state: { from: location }, replace: true });
         }
-    }, [isLoading, user, error, navigate]);
+    }, [isAuthenticated, navigate, location]);
 
-    if (isLoading) return <div>Chargement de l'authentification...</div>;
-
-    return user ? <Outlet /> : null; // Rend uniquement si connecté
+    return isAuthenticated ? <Outlet /> : null;
 };
 
-export default Guard;
+// Guard spécifique pour les admins
+export const AdminGuard = () => {
+    const { isAuthenticated, isAdmin } = useAuth(); // Supposons que isAdmin soit ajouté au contexte
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (!isAuthenticated) {
+            console.log('Utilisateur non authentifié, redirection vers /');
+            navigate('/', { state: { from: location }, replace: true });
+        } else if (!isAdmin) {
+            console.log('Accès refusé : utilisateur non admin, redirection vers /');
+            navigate('/', { replace: true });
+        }
+    }, [isAuthenticated, isAdmin, navigate, location]);
+
+    return isAuthenticated && isAdmin ? <Outlet /> : null;
+};

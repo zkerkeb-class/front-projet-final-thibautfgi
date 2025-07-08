@@ -46,3 +46,7 @@ npm run dev
 - utilisation d'une api complexe (ex: API de wow)
 - limitation des calls API
 - more
+
+
+a faire =
+
