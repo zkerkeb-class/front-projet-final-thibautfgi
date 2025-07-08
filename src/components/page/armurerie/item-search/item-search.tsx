@@ -1,10 +1,12 @@
+// src/components/page/item-search/ItemSearch.tsx
 import { useState, useEffect, JSX } from 'react';
 import { searchItems } from '../../../communs/service/apiService';
-import { apiGetItemMediaById } from '../../../communs/service/apiService'; // Ajuster le chemin si nécessaire
+import { apiGetItemMediaById } from '../../../communs/service/apiService'; // Ajustez le chemin si nécessaire
 import { Link } from 'react-router-dom';
 import './item-search.css';
 import { LocalizedString, ItemQuality, ItemSearchResult } from '../interface/item-search.interface';
 import { getBorderColor, getItemClass, getFrenchTranslation } from "../service/tools.service";
+import { useTranslation } from 'react-i18next';
 
 const searchItemsCallback = (
     searchTerm: string,
@@ -38,7 +40,7 @@ const searchItemsCallback = (
             })
                 .then((fallbackResponse) => {
                     const all = fallbackResponse.results || [];
-                    const filtered = all.filter((item) =>
+                    const filtered = all.filter((item: ItemSearchResult) =>
                         getFrenchTranslation(item.data.name).toLowerCase().includes(searchTerm.toLowerCase())
                     );
                     console.log('🎯 Résultats après fallback local:', filtered);
@@ -56,10 +58,8 @@ const searchItemsCallback = (
         });
 };
 
-
-
-
 function ItemSearch({ onItemSelect }: { onItemSelect: (itemWithMedia: { item: any, media: any }) => void }): JSX.Element {
+    const { t } = useTranslation();
     const [searchTerm, setSearchTerm] = useState('');
     const [allResults, setAllResults] = useState<ItemSearchResult[]>([]);
     const [displayedResults, setDisplayedResults] = useState<{ item: ItemSearchResult, media: any }[]>([]);
@@ -110,19 +110,19 @@ function ItemSearch({ onItemSelect }: { onItemSelect: (itemWithMedia: { item: an
 
     return (
         <div className="container">
-            <h1 className="title-search">Recherche d'Items</h1>
+            <h1 className="title-search">{t('itemSearch.title')}</h1>
             <div className="search-wrapper">
                 <input
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="search-input"
-                    placeholder="Rechercher un objet..."
+                    placeholder={t('itemSearch.placeholder')}
                 />
 
                 {searchTerm.length >= 3 && (
                     <div className="dropdown">
-                        {isLoading && <p className="loading">Chargement...</p>}
+                        {isLoading && <p className="loading">{t('itemSearch.loading')}</p>}
                         {!isLoading && error && <p className="error">{error}</p>}
                         {!isLoading && displayedResults.length > 0 && (
                             <ul className="results-list">
@@ -139,7 +139,7 @@ function ItemSearch({ onItemSelect }: { onItemSelect: (itemWithMedia: { item: an
                                         {media && media.assets && media.assets[0] && (
                                             <img
                                                 src={media.assets[0].value}
-                                                alt={`${getFrenchTranslation(item.data.name)} Icon`}
+                                                alt={t('itemSearch.alt', { name: getFrenchTranslation(item.data.name) })}
                                                 style={{
                                                     border: `2px solid ${getBorderColor(item.data.quality.type)}`,
                                                     borderRadius: '4px',

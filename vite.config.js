@@ -13,4 +13,14 @@ export default defineConfig({
       },
     },
   },
+  resolve: {
+    extensions: ['.js', '.ts', '.tsx', '.json'],
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: './index.html',
+      },
+    },
+  },
 });

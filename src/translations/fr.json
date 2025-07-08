@@ -1,0 +1,68 @@
+{
+  "header": {
+    "armurerie": "Armurerie",
+    "inventaire": "Inventaire",
+    "admin": "Admin",
+    "language": "Langue",
+    "toggle": "Basculer"
+  },
+  "connect": {
+    "login": "Se connecter",
+    "logout": "Se déconnecter",
+    "user": "Utilisateur",
+    "error": "Erreur"
+  },
+  "footer": {
+    "copyright": "© 2024 Armory Adventure. Tous droits réservés"
+  },
+  "admin": {
+    "loading": "Chargement...",
+    "error": "Erreur :",
+    "accessDenied": "Accès admin requis. Vous n'êtes pas autorisé à voir cette page.",
+    "errorLoadingUsers": "Erreur lors du chargement des utilisateurs",
+    "errorUpdatingBan": "Erreur lors de la mise à jour du ban",
+    "errorCountingInventory": "Erreur lors du comptage de l'inventaire pour {{id}}",
+    "pageTitle": "Page Admin",
+    "table": {
+      "idUser": "ID Utilisateur",
+      "name": "Nom",
+      "banStatus": "Statut Ban",
+      "itemCount": "Nombre d'Items"
+    },
+    "unban": "Débannir",
+    "ban": "Bannir"
+  },
+  "itemSearch": {
+    "title": "Recherche d'Items",
+    "placeholder": "Rechercher un objet...",
+    "loading": "Chargement...",
+    "alt": "Icône de {{name}}"
+  },
+  "armurerie": {
+    "selectItem": "Sélectionnez un item dans la recherche.",
+    "quality": "Qualité :",
+    "requiredLevel": "Niveau requis :",
+    "sellPrice": "Prix de vente :",
+    "type": "Type :",
+    "inventoryType": "Type d'inventaire :",
+    "recoverItem": "Récupérer l'item",
+    "savedItems": "Items sauvegardés :",
+    "errorNotAuthenticated": "Veuillez vous connecter pour sauvegarder un item.",
+    "errorNoItemSelected": "Aucun item sélectionné",
+    "errorSavingItem": "Erreur : {{message}}",
+    "currency": "pièces"
+  },
+  "home": {
+    "welcome": "Bienvenue sur le portail de gestion de votre inventaire !",
+    "welcomeAuthenticated": "Bonjour {{user}}, vous êtes connecté. Gérez vos items avec efficacité !",
+    "welcomeUnauthenticated": "Commencez par vous connecter pour accéder à vos items et les gérer efficacement."
+  },
+  "inventaire": {
+    "title": "Inventaire",
+    "errorNotAuthenticated": "Veuillez vous connecter pour voir votre inventaire.",
+    "errorLoadingInventory": "Erreur : {{message}}",
+    "delete": "Supprimer",
+    "errorDeletingItem": "Erreur : {{message}}",
+    "noItems": "Aucun item dans l'inventaire."
+  }
+}

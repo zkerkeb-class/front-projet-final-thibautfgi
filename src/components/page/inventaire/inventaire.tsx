@@ -1,10 +1,13 @@
+// src/components/page/inventaire/Inventaire.tsx
 import { JSX, useState, useEffect } from 'react';
 import './inventaire.css';
 import { apiGetItemById, apiGetItemMediaById, getInventory, deleteItem } from '../../communs/service/apiService';
 import { getBorderColor, getFrenchTranslation } from "../armurerie/service/tools.service";
-import { useAuth } from '../../communs/authProvider/authProvider'// Ajustez le chemin
+import { useAuth } from '../../communs/authProvider/authProvider'; // Ajustez le chemin
+import { useTranslation } from 'react-i18next';
 
 function Inventaire(): JSX.Element {
+    const { t } = useTranslation();
     const [items, setItems] = useState<{ id: number, data: any, media: any }[]>([]);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const { isAuthenticated } = useAuth();
@@ -12,7 +15,7 @@ function Inventaire(): JSX.Element {
     useEffect(() => {
         if (!isAuthenticated) {
             setItems([]);
-            setErrorMessage('Veuillez vous connecter pour voir votre inventaire.');
+            setErrorMessage(t('inventaire.errorNotAuthenticated'));
             return;
         }
 
@@ -45,7 +48,7 @@ function Inventaire(): JSX.Element {
                 const fetchedItems = await Promise.all(itemPromises);
                 setItems(fetchedItems.filter(item => item.data && item.media));
             } catch (error) {
-                setErrorMessage(`Erreur : ${error.message || 'Échec du chargement de l\'inventaire'}`);
+                setErrorMessage(t('inventaire.errorLoadingInventory',  'Échec du chargement de l\'inventaire' ));
                 console.error('Failed to load inventory:', error);
             }
         };
@@ -55,7 +58,7 @@ function Inventaire(): JSX.Element {
 
     const handleDeleteItem = async (id: number) => {
         if (!isAuthenticated) {
-            setErrorMessage('Veuillez vous connecter pour supprimer un item.');
+            setErrorMessage(t('inventaire.errorNotAuthenticated'));
             return;
         }
         try {
@@ -63,14 +66,14 @@ function Inventaire(): JSX.Element {
             setItems(items.filter(item => item.id !== id));
             console.log(`Item ${id} deleted successfully`);
         } catch (error) {
-            setErrorMessage(`Erreur : ${error.message || 'Échec de la suppression de l\'item'}`);
+            setErrorMessage(t('inventaire.errorDeletingItem',  'Échec de la suppression de l\'item'));
             console.error('Failed to delete item:', error);
         }
     };
 
     return (
         <div className="inventory-container">
-            <h1 className="inventory-title">Inventaire</h1>
+            <h1 className="inventory-title">{t('inventaire.title')}</h1>
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
             <div className="items-list">
                 {items.map(({ id, data, media }) => (
@@ -92,12 +95,12 @@ function Inventaire(): JSX.Element {
                             onClick={() => handleDeleteItem(id)}
                             style={{ marginTop: '10px', padding: '5px 10px', backgroundColor: '#FF4444', color: '#FFFFFF', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
                         >
-                            Supprimer
+                            {t('inventaire.delete')}
                         </button>
                     </div>
                 ))}
             </div>
-            {items.length === 0 && !errorMessage && <p>Aucun item dans l'inventaire.</p>}
+            {items.length === 0 && !errorMessage && <p>{t('inventaire.noItems')}</p>}
         </div>
     );
 }

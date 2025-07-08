@@ -1,0 +1,68 @@
+{
+  "header": {
+    "armurerie": "Armory",
+    "inventaire": "Inventory",
+    "admin": "Admin",
+    "language": "Language",
+    "toggle": "Toggle"
+  },
+  "connect": {
+    "login": "Log in",
+    "logout": "Log out",
+    "user": "User",
+    "error": "Error"
+  },
+  "footer": {
+    "copyright": "© 2024 Armory Adventure. All Rights Reserved"
+  },
+  "admin": {
+    "loading": "Loading...",
+    "error": "Error:",
+    "accessDenied": "Admin access required. You are not authorized to view this page.",
+    "errorLoadingUsers": "Error loading users",
+    "errorUpdatingBan": "Error updating ban",
+    "errorCountingInventory": "Error counting inventory for {{id}}",
+    "pageTitle": "Admin Page",
+    "table": {
+      "idUser": "User ID",
+      "name": "Name",
+      "banStatus": "Ban Status",
+      "itemCount": "Item Count"
+    },
+    "unban": "Unban",
+    "ban": "Ban"
+  },
+  "itemSearch": {
+    "title": "Item Search",
+    "placeholder": "Search for an item...",
+    "loading": "Loading...",
+    "alt": "Icon of {{name}}"
+  },
+  "armurerie": {
+    "selectItem": "Select an item from the search.",
+    "quality": "Quality:",
+    "requiredLevel": "Required Level:",
+    "sellPrice": "Sell Price:",
+    "type": "Type:",
+    "inventoryType": "Inventory Type:",
+    "recoverItem": "Recover Item",
+    "savedItems": "Saved Items:",
+    "errorNotAuthenticated": "Please log in to save an item.",
+    "errorNoItemSelected": "No item selected",
+    "errorSavingItem": "Error: {{message}}",
+    "currency": "gold"
+  },
+  "home": {
+    "welcome": "Welcome to your inventory management portal!",
+    "welcomeAuthenticated": "Hello {{user}}, you are logged in. Manage your items efficiently!",
+    "welcomeUnauthenticated": "Start by logging in to access and manage your items efficiently."
+  },
+  "inventaire": {
+    "title": "Inventory",
+    "errorNotAuthenticated": "Please log in to view your inventory.",
+    "errorLoadingInventory": "Error: {{message}}",
+    "delete": "Delete",
+    "errorDeletingItem": "Error: {{message}}",
+    "noItems": "No items in inventory."
+  }
+}

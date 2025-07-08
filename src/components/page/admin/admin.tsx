@@ -3,18 +3,20 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '../../communs/authProvider/authProvider'; // Ajustez le chemin
 import axios from 'axios';
 import './admin.css'; // Créez ce fichier CSS
+import { useTranslation } from 'react-i18next';
 
 const API_BASE_URL = 'http://localhost:3000/api/wow';
 
 function Admin() {
     const { isAuthenticated, isAdmin } = useAuth();
+    const { t } = useTranslation();
     const [users, setUsers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         if (!isAuthenticated || !isAdmin) {
-            setError("Accès admin requis. Vous n'êtes pas autorisé à voir cette page.");
+            setError(t('admin.accessDenied'));
             setLoading(false);
             return; // Le Guard gère la redirection, mais on affiche l'erreur ici aussi
         }
@@ -26,7 +28,7 @@ function Admin() {
                 setLoading(false);
             })
             .catch((err) => {
-                setError(err.response?.data?.error || 'Erreur lors du chargement des utilisateurs');
+                setError(t('admin.errorLoadingUsers') || 'Erreur lors du chargement des utilisateurs');
                 setLoading(false);
             });
     }, [isAuthenticated, isAdmin]);
@@ -44,7 +46,7 @@ function Admin() {
                 ));
             })
             .catch((err) => {
-                setError(err.response?.data?.error || 'Erreur lors de la mise à jour du ban');
+                setError(t('admin.errorUpdatingBan') || 'Erreur lors de la mise à jour du ban');
             });
     };
 
@@ -53,7 +55,7 @@ function Admin() {
             const response = await axios.get(`${API_BASE_URL}/inventory/${id_user}`, { withCredentials: true });
             return Array.isArray(response.data) ? response.data.length : 0;
         } catch (err) {
-            console.error(`Erreur lors du comptage de l'inventaire pour ${id_user}:`, err);
+            console.error(t('admin.errorCountingInventory', { id: id_user }), err);
             return 0;
         }
     };
@@ -62,7 +64,7 @@ function Admin() {
 
     useEffect(() => {
         const fetchInventoryCounts = async () => {
-            const counts = {};
+            const counts: { [key: string]: number } = {};
             for (const user of users) {
                 counts[user.id_user] = await getInventoryCount(user.id_user);
             }
@@ -71,39 +73,38 @@ function Admin() {
         if (users.length > 0) fetchInventoryCounts();
     }, [users]);
 
-    if (loading) return <div>Chargement...</div>;
-    if (error) return <div style={{ color: 'red' }}>Erreur : {error}</div>;
+    if (loading) return <div>{t('admin.loading')}</div>;
+    if (error) return <div style={{ color: 'red' }}>{t('admin.error')} : {error}</div>;
 
     return (
         <div className="admin-container">
-            <h4>Page Admin</h4>
+            <h4>{t('admin.pageTitle')}</h4>
             <table className="user-table">
                 <thead>
                 <tr>
-                    <th>ID Utilisateur</th>
-                    <th>Nom</th>
-                    <th>Statut Ban</th>
-                    <th>Nombre d'Items</th>
+                    <th>{t('admin.table.idUser')}</th>
+                    <th>{t('admin.table.name')}</th>
+                    <th>{t('admin.table.banStatus')}</th>
+                    <th>{t('admin.table.itemCount')}</th>
                 </tr>
                 </thead>
                 <tbody>
                 {users.map((user) => (
                     <tr key={user.id_user}>
-                        <td data-label="ID Utilisateur">{user.id_user}</td>
-                        <td data-label="Nom">{user.blizzardAccountName}</td>
-                        <td data-label="Statut Ban">
+                        <td data-label={t('admin.table.idUser')}>{user.id_user}</td>
+                        <td data-label={t('admin.table.name')}>{user.blizzardAccountName}</td>
+                        <td data-label={t('admin.table.banStatus')}>
                             <button
                                 className={`ban-button ${user.isBan ? 'red' : 'green'}`}
                                 onClick={() => toggleBan(user.id_user, user.isBan)}
                             >
-                                {user.isBan ? 'Débannir' : 'Bannir'}
+                                {user.isBan ? t('admin.unban') : t('admin.ban')}
                             </button>
                         </td>
-                        <td data-label="Nombre d'Items">{inventoryCounts[user.id_user] || 0}</td>
+                        <td data-label={t('admin.table.itemCount')}>{inventoryCounts[user.id_user] || 0}</td>
                     </tr>
                 ))}
                 </tbody>
-
             </table>
         </div>
     );

@@ -1,11 +1,14 @@
+// src/components/page/armurerie/Armurerie.tsx
 import { JSX, useState, useEffect } from 'react';
 import './armurerie.css';
 import ItemSearch from "./item-search/item-search";
 import { getFrenchTranslation, getItemClass, getBorderColor } from "./service/tools.service";
 import { postItem } from '../../communs/service/apiService';
 import { useAuth } from '../../communs/authProvider/authProvider'; // Ajustez le chemin
+import { useTranslation } from 'react-i18next';
 
 function Armurerie(): JSX.Element {
+    const { t } = useTranslation();
     const [selectedItem, setSelectedItem] = useState<{ item: any, media: any } | null>(null);
     const [savedItems, setSavedItems] = useState<number[]>([]);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -24,7 +27,7 @@ function Armurerie(): JSX.Element {
     const handleRecoverItem = async () => {
         console.log('handleRecoverItem called. SelectedItem:', selectedItem); // Debug log
         if (!isAuthenticated) {
-            setErrorMessage('Veuillez vous connecter pour sauvegarder un item.');
+            setErrorMessage(t('armurerie.errorNotAuthenticated'));
             return;
         }
         if (selectedItem && selectedItem.item.data.id) {
@@ -35,11 +38,11 @@ function Armurerie(): JSX.Element {
                 setErrorMessage(null); // Effacer l'erreur en cas de succès
                 console.log('Item saved successfully:', response);
             } catch (error) {
-                setErrorMessage(`Erreur : ${error.message || 'Échec de la sauvegarde'}`);
+                setErrorMessage(t('armurerie.errorSavingItem', 'Échec de la sauvegarde' ));
                 console.error('Failed to save item - Full error:', error); // Log d'erreur détaillé
             }
         } else {
-            setErrorMessage('Aucun item sélectionné');
+            setErrorMessage(t('armurerie.errorNoItemSelected'));
             console.warn('Save failed. SelectedItem:', selectedItem);
         }
     };
@@ -66,18 +69,18 @@ function Armurerie(): JSX.Element {
                                 {getFrenchTranslation(selectedItem.item.data.name)}
                             </h2>
                         </div>
-                        <p><strong>Qualité :</strong> {getFrenchTranslation(selectedItem.item.data.quality.name)}</p>
-                        <p><strong>Niveau requis :</strong> {selectedItem.item.data.required_level || 'N/A'}</p>
-                        <p><strong>Prix de vente :</strong> {selectedItem.item.data.sell_price || 'N/A'} pièces</p>
-                        <p><strong>Type :</strong> {getItemClass(selectedItem.item.data.item_class.id)}</p>
-                        <p><strong>Type d'inventaire :</strong> {getFrenchTranslation(selectedItem.item.data.inventory_type.name) || 'N/A'}</p>
+                        <p><strong>{t('armurerie.quality')} :</strong> {getFrenchTranslation(selectedItem.item.data.quality.name)}</p>
+                        <p><strong>{t('armurerie.requiredLevel')} :</strong> {selectedItem.item.data.required_level || 'N/A'}</p>
+                        <p><strong>{t('armurerie.sellPrice')} :</strong> {selectedItem.item.data.sell_price || 'N/A'} {t('armurerie.currency')}</p>
+                        <p><strong>{t('armurerie.type')} :</strong> {getItemClass(selectedItem.item.data.item_class.id)}</p>
+                        <p><strong>{t('armurerie.inventoryType')} :</strong> {getFrenchTranslation(selectedItem.item.data.inventory_type.name) || 'N/A'}</p>
                         <button className="recover-button" onClick={handleRecoverItem}>
-                            Récupérer l'item
+                            {t('armurerie.recoverItem')}
                         </button>
                         {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
                         {savedItems.length > 0 && (
                             <div>
-                                <h3>Items sauvegardés :</h3>
+                                <h3>{t('armurerie.savedItems')}</h3>
                                 <ul>
                                     {savedItems.map(id => (
                                         <li key={id}>{id}</li>
@@ -88,7 +91,7 @@ function Armurerie(): JSX.Element {
                     </div>
                 ) : (
                     <div className="item-details">
-                        <p>Sélectionnez un item dans la recherche.</p>
+                        <p>{t('armurerie.selectItem')}</p>
                     </div>
                 )}
             </div>
