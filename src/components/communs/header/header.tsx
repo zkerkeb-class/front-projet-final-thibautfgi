@@ -3,13 +3,15 @@ import { JSX } from 'react';
 import './header.css';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFire } from '@fortawesome/free-solid-svg-icons';
+import { faFire, faLanguage, faLeaf } from '@fortawesome/free-solid-svg-icons';
 // @ts-ignore
 import logo from '../../../assets/image/wow-logo.png';
 import { useAuth } from '../authProvider/authProvider'; // Ajustez le chemin
+import { useBackground } from '../background/background'; // Mise à jour de l'import
 
 function Header(): JSX.Element {
     const { isAdmin } = useAuth();
+    const { isFire, toggleFire } = useBackground(); // Mise à jour pour useBackground
 
     return (
         <div className="header-container">
@@ -25,7 +27,13 @@ function Header(): JSX.Element {
                 </nav>
                 <div className="header-nav-buttons">
                     <button className="buttonHeader">
-                        <FontAwesomeIcon icon={faFire} size="2xs" />
+                        <FontAwesomeIcon icon={faLanguage} size="2xs" />
+                    </button>
+                    <button
+                        className={isFire ? "buttonHeader buttonFire" : "buttonHeader buttonLeaf"}
+                        onClick={toggleFire}
+                    >
+                        <FontAwesomeIcon icon={isFire ? faFire : faLeaf} size="2xs" />
                     </button>
                 </div>
             </div>

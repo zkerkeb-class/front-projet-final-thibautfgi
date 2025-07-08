@@ -6,10 +6,10 @@
     z-index: 1000;
     position: relative; /* Changer fixed à relative */
 }
+
 /* Première row : 15vh, noir avec logo WoW au centre */
 .header-top-row {
     height: 50%;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -28,7 +28,6 @@
     position: fixed;
     align-items: center;
     justify-content: center;
-    clickable: true; /* Assurez-vous que l'image est cliquable */
     cursor: pointer; /* Change le curseur pour indiquer que c'est cliquable */
 }
 
@@ -67,7 +66,6 @@
     background-repeat: repeat-x;
     background-size: auto 100%;
     z-index: 1;
-
 }
 
 /* Correction de la classe .container-logo (si nécessaire) */
@@ -79,8 +77,6 @@
     align-items: center;
     justify-content: center;
 }
-
-
 
 .nav-link {
     color: #ffd700;
@@ -97,8 +93,6 @@
     font-size: 10px;
     padding: 1px 10px;
     z-index: 15;
-
-
 }
 
 .nav-link:hover {
@@ -121,23 +115,28 @@
     justify-content: center;
     align-items: center;
     padding: 0;
-    border: none
+    border: none;
+    transition: transform 0.5s; /* Transition pour l'effet hover */
 }
 
 .buttonHeader:hover {
     transform: scale(1.05);
-    transition: 0.5s;
 }
 
-.buttonHeader:hover {
-    transform: scale(1.05);
-    transition: 0.5s;
+.buttonFire {
+    background-color: #ff4500; /* Rouge pour fire */
+}
+
+.buttonLeaf {
+    background-color: #228b22; /* Vert pour leaf */
 }
 
 .header-nav-buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
     position: absolute;
     right: 20px; /* Ajustez selon vos besoins */
     top: 50%;
     transform: translateY(-50%);
-
 }

@@ -5,7 +5,18 @@
     flex-direction: column;
     overflow: hidden; /* Empêche le scroll de la page entière */
     position: relative;
-    background:url('../../../assets/image/wow-caverne.png') no-repeat center center fixed;
+    transition: background-image 0.5s ease; /* Transition douce pour le changement de fond */
+}
+
+/* Fond par défaut (isFire = false) avec wow-caverne.png */
+.app-container {
+    background: url('../../../assets/image/wow-caverne.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Fond pour isFire = true avec wow-magma.png */
+.app-container.fire-background {
+    background: url('../../../assets/image/wow-magma.png') no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -23,10 +34,7 @@
     overflow-y: auto;
     scrollbar-width: none;
     -ms-overflow-style: none;
-   /*  background-color: rgba(4, 11, 23, 0.5); */
-
 }
-
 
 @media screen and (max-width: 600px) {
     .main-content {
